@@ -5,7 +5,10 @@ def solution(absolutes, signs):
             answer += i
         else:
             answer -= i
+    print(sum([i for i, j in zip(absolutes, signs) if j==True]) + sum([-i for i, j in zip(absolutes, signs) if j==False]))
     return answer
+
+
 
 absolutes = [4,7,12]
 signs = [True, False, True]

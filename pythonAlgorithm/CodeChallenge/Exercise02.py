@@ -12,8 +12,9 @@ def solution(s):
             if i in dict.keys():
                 stack.append(i)
             else:
-                if dict[stack[-1]] == i:
-                    stack.pop()
+                if stack[-1] in dict.keys():
+                    if dict[stack[-1]] == i:
+                        stack.pop()
                 else:
                     stack.append(i)
             count += 1
@@ -25,7 +26,7 @@ def solution(s):
 #s = "[](){}"
 s = "}]()[{"
 #s = "[)(]"
-
+s = "[(])"
 print(solution(s))
 
 """

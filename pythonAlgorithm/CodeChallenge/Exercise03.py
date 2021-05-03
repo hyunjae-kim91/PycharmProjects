@@ -1,47 +1,26 @@
-from collections import Counter
-
-
 def solution(a, edges):
+    li = [[] for _ in range(len(a))]
     for edge in edges:
-        if edges == 0:
-            bool = True
-        else:
-            bool = False
-            break
-    if bool:
-        return 0
-    if sum(a):
-        return -1
+        li[edge[0]].append(edge[1])
+        li[edge[1]].append(edge[0])
 
-    dict = Counter()
-    tmp = []
-    for edge in edges:
-        for j in edge:
-            tmp.append(j)
-    dict = Counter(tmp)
+    print(li)
+    def dfs(idx, pidx):
+        global answer
+        answer = 0
 
-    for j in range(len(a)):
-        if j not in dict.keys() and a[j] != 0:
-            return -1
-    count = 0
+        for i in li[idx]:
+            if i != pidx:
+                dfs(i, idx)
 
-    edges = sorted(edges, key = lambda x: min(dict[x[0]],dict[x[1]]))
 
-    for edge in edges:
-        i, j= edge
-        if dict[i] >= dict[j]:
-            a[i] += a[j]
-            count += abs(a[j])
-            a[j] = 0
-        else:
-            a[j] += a[i]
-            count += abs(a[i])
-            a[i] = 0
-        print(a)
-    if a != [0]*len(a):
-        return -1
-    return count
+        a[pidx] += a[idx]
+        answer += abs(a[idx])
+        a[idx] = 0
 
+    dfs(0, 0)
+
+    return answer
 
 
 a = [-5, 0, 2, 1, 2]
